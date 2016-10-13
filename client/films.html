@@ -1,0 +1,16 @@
+<div class="films">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Director</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="film in vm.films">
+                <td>{{ film.title }}</td>
+                <td>{{ film.director }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
