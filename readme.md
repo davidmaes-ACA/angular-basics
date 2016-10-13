@@ -34,6 +34,11 @@ Move the the test directory and execute
 	
 This will install all necessary dependencies.
 
+Run the following to install the karma cli. This will allow you to run karma from anywhere using the terminal/cmd
+
+	npm install -g karma-cli	
+
+
 To run the tests execute:
 
 	karma start --single-run --browsers PhantomJS karma.conf.js
