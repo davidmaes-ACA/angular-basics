@@ -6,11 +6,14 @@ describe('be.cw.test.film.overview.ui', function () {
 	}];
 
 	var vm, $controller, $httpBackend;
+	var locationMock;
 
 	describe('FilmOverviewController', function () {
 
 		beforeEach(function () {
-			module('be.cw.test.film.overview.ui', function ($provide) {});
+			locationMock = jasmine.createSpyObj('locationMock', ['path']);
+
+			module('be.cw.test.film.overview.ui');
 
 			inject(function (_$controller_, _$httpBackend_) {
 				$controller = _$controller_;
@@ -21,7 +24,9 @@ describe('be.cw.test.film.overview.ui', function () {
 		function _createController() {
 			$httpBackend.expectGET('http://localhost:8081/api/films').respond(200, FILMS);
 
-			vm = $controller('FilmOverviewController', {});
+			vm = $controller('FilmOverviewController', {
+				$location: locationMock
+			});
 
 			$httpBackend.flush();
 		}
@@ -32,6 +37,16 @@ describe('be.cw.test.film.overview.ui', function () {
 
 				expect(vm.films[0].title).toEqual('testFilm');
 				expect(vm.films[0].director).toEqual('testDirector');
+			});
+		});
+
+		describe('goToCreateFilm', function () {
+			it('redirects to create-film page', function () {
+				_createController();
+
+				vm.goToCreateFilm();
+
+				expect(locationMock.path).toHaveBeenCalledWith('/create-film')
 			});
 		});
 	});
